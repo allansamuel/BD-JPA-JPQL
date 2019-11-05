@@ -2,6 +2,7 @@ package model;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,8 +15,13 @@ public class Pedido {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="CodPedido", columnDefinition="INT(4)")
 	private Integer codPedido;
+	
+	@Column(name="PrazoEntrega", columnDefinition="DATE", nullable=false)
 	private Date prazoEntrega;
+	
+	@Column(name="DataPedido", columnDefinition="DATE", nullable=false)
 	private Date dataPedido;
 	
 	@ManyToOne

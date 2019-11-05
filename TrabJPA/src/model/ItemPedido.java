@@ -1,6 +1,7 @@
 package model;
 
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,8 +14,10 @@ public class ItemPedido {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "CodItemPedido", columnDefinition="INT(4)" )
 	private Integer codItemPedido;
 	
+	@Column(name="Quantidade", columnDefinition="INT(5)", nullable= false)
 	private Integer quantidade;
 	
 	@ManyToOne

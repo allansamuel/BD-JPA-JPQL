@@ -14,16 +14,8 @@ public class Executavel {
 		em.getTransaction().begin();
 		
 		Cliente c = new Cliente();
-		
-		c.setCodCliente(0);
-		c.setNome("pedrinho");
-		c.setEndereco("rua show");
-		c.setCidade("cidade do pedrinho");
-		c.setCep("121312");
-		c.setUf("rs");;
-		c.setIe("123456789111");
-		em.persist(c);
-		
+		c  = em.find(Cliente.class, 1);
+		System.out.println(c.getNome());
 		
 		em.getTransaction().commit();
 		em.close();

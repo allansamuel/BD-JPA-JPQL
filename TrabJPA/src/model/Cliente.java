@@ -11,29 +11,29 @@ public class Cliente {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "CodCliente")
+    @Column(name = "CodCliente", columnDefinition="INT(4)" )
 	private Integer codCliente;
 
-	@Column(name = "Nome")
+	@Column(name = "Nome", columnDefinition="VARCHAR(100)", nullable= false)
 	private String nome;
 	
-	@Column(name = "Endereco")
+	@Column(name = "Endereco", columnDefinition="VARCHAR(255)", nullable= false)
 	private String endereco;
 	
-	@Column(name = "Cidade")
+	@Column(name = "Cidade", columnDefinition="VARCHAR(60)", nullable= false)
 	private String cidade;
 	
-	@Column(name = "Cep")
+	@Column(name = "Cep", columnDefinition="VARCHAR(11)", nullable= false)
 	private String cep;
 	
-	@Column(name = "Uf")
+	@Column(name = "Uf", columnDefinition="VARCHAR(2)", nullable= false)
 	private String uf;
 	
-	@Column(name = "Ie")
+	@Column(name = "Ie", columnDefinition="VARCHAR(12)", nullable= false)
 	private String ie;
 	
 	public Cliente() {
-		super();
+		this.codCliente = null;
 	}
 	public Integer getCodCliente() {
 		return codCliente;
