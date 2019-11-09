@@ -40,12 +40,12 @@ public class Executavel {
 		return results;
 	}
 	
-	
 	//Liste o nome do cliente, o código do pedido e a quantidade total de produtos por pedido.
 	public static void buscarQuantidadePorPedido(EntityManager em) {
-		TypedQuery<Object[]> query = em.createQuery("select c.nome, p.codPedido, sum(i.quantidade) from Cliente c " + 
-				"left join Pedido p on p.cliente.codCliente = c.codCliente " + 
-				"left join ItemPedido i on p.codPedido = i.pedido.codPedido group by p.codPedido", Object[].class);
+		TypedQuery<Object[]> query = em.createQuery("SELECT c.nome, p.codPedido, SUM(COALESCE(i.quantidade,0)) FROM Cliente AS c " + 
+				"LEFT JOIN Pedido AS p ON p.cliente.codCliente = c.codCliente " + 
+				"LEFT JOIN ItemPedido AS i ON p.codPedido = i.pedido.codPedido " + 
+				"GROUP BY p.codPedido ORDER BY c.nome", Object[].class);
 		List<Object[]> results = query.getResultList();
 		int calc = 0;
 		for (Object[] result : results) {
