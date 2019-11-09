@@ -5,8 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="produto")
 public class Produto {
 
 	@Id
@@ -17,7 +19,7 @@ public class Produto {
 	@Column(name="Descricao", columnDefinition="VARCHAR(100)", nullable=false)
 	private String descricao;
 	
-	@Column(name="ValorUnitario", columnDefinition="DECIMAL(10,2)", nullable=false)
+	@Column(name="ValorUnitario", columnDefinition="DECIMAL(10,2)", precision=10, scale=2, nullable=false)
 	private Double valorUnitario;
 
 	public Produto() {

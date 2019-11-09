@@ -8,8 +8,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="itempedido")
 public class ItemPedido {
 
 	@Id
@@ -17,16 +19,16 @@ public class ItemPedido {
 	@Column(name = "CodItemPedido", columnDefinition="INT(4)" )
 	private Integer codItemPedido;
 	
-	@Column(name="Quantidade", columnDefinition="INT(5)", nullable= false)
-	private Integer quantidade;
+	@ManyToOne
+	@JoinColumn(name = "CodPedido", columnDefinition = "INT(4)", nullable=false)
+	private Pedido pedido;
 	
 	@ManyToOne
-	@JoinColumn(name = "CodProduto")
+	@JoinColumn(name = "CodProduto", columnDefinition = "INT(4)", nullable=false)
 	private Produto produto;
 	
-	@ManyToOne
-	@JoinColumn(name = "CodPedido")
-	private Pedido pedido;
+	@Column(name = "Quantidade", columnDefinition="INT(5)", nullable= false)
+	private Integer quantidade;
 
 	public ItemPedido() {
 		super();

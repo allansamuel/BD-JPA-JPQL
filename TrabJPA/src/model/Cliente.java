@@ -5,8 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity 
+@Table(name="cliente")
 public class Cliente {
 
 	@Id
@@ -26,7 +28,7 @@ public class Cliente {
 	@Column(name = "Cep", columnDefinition="VARCHAR(11)", nullable= false)
 	private String cep;
 	
-	@Column(name = "Uf", columnDefinition="VARCHAR(2)", nullable= false)
+	@Column(name = "Uf", columnDefinition="CHAR(2)", nullable= false)
 	private String uf;
 	
 	@Column(name = "Ie", columnDefinition="VARCHAR(12)", nullable= false)

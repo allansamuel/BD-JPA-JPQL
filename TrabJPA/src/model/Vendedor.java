@@ -7,8 +7,10 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity 
+@Table(name="vendedor")
 public class Vendedor {
 
 	@Id
@@ -19,11 +21,11 @@ public class Vendedor {
 	@Column(name = "Nome", columnDefinition="VARCHAR(45)", nullable=false)
 	private String nome;
 	
-	@Column(name = "SalarioFixo", columnDefinition="DECIMAL(10,2)", nullable=false)
-	private String salarioFixo;
+	@Column(name = "SalarioFixo", columnDefinition="DECIMAL(10,2)", precision=10, scale=2, nullable=false)
+	private Double salarioFixo;
 	
 	@Enumerated(EnumType.STRING)
-	@Column(name = "FaixaComissao", nullable=false)
+	@Column(name = "FaixaComissao", columnDefinition="ENUM('A','B','C','D')", nullable=false)
 	private Comissao faixaComissao;
 
 	public Vendedor() {
@@ -46,11 +48,11 @@ public class Vendedor {
 		this.nome = nome;
 	}
 
-	public String getSalarioFixo() {
+	public Double getSalarioFixo() {
 		return salarioFixo;
 	}
 
-	public void setSalarioFixo(String salarioFixo) {
+	public void setSalarioFixo(Double salarioFixo) {
 		this.salarioFixo = salarioFixo;
 	}
 

@@ -1,7 +1,6 @@
 package model;
 
-import java.sql.Date;
-
+import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,8 +8,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="pedido")
 public class Pedido {
 
 	@Id
@@ -19,17 +20,17 @@ public class Pedido {
 	private Integer codPedido;
 	
 	@Column(name="PrazoEntrega", columnDefinition="DATE", nullable=false)
-	private Date prazoEntrega;
+	private LocalDate prazoEntrega;
 	
 	@Column(name="DataPedido", columnDefinition="DATE", nullable=false)
-	private Date dataPedido;
+	private LocalDate dataPedido;
 	
 	@ManyToOne
-	@JoinColumn(name = "CodCliente")
+	@JoinColumn(name = "CodCliente", columnDefinition="INT(4)", nullable=false)
 	private Cliente cliente;
 	
 	@ManyToOne
-	@JoinColumn(name = "CodVendedor")
+	@JoinColumn(name = "CodVendedor", columnDefinition="INT(4)", nullable=false)
 	private Vendedor vendedor;
 
 	public Pedido() {
@@ -44,19 +45,19 @@ public class Pedido {
 		this.codPedido = codPedido;
 	}
 
-	public Date getPrazoEntrega() {
+	public LocalDate getPrazoEntrega() {
 		return prazoEntrega;
 	}
 
-	public void setPrazoEntrega(Date prazoEntrega) {
+	public void setPrazoEntrega(LocalDate prazoEntrega) {
 		this.prazoEntrega = prazoEntrega;
 	}
 
-	public Date getDataPedido() {
+	public LocalDate getDataPedido() {
 		return dataPedido;
 	}
 
-	public void setDataPedido(Date dataPedido) {
+	public void setDataPedido(LocalDate dataPedido) {
 		this.dataPedido = dataPedido;
 	}
 
