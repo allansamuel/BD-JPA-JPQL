@@ -20,7 +20,7 @@ public class Executavel {
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
 		
-		buscarProdutosVendidos(em);
+		buscarQuantidadePorPedido(em);
 		
 		em.getTransaction().commit();
 		em.close();
@@ -29,7 +29,8 @@ public class Executavel {
 	//Ver os pedidos de cada cliente, listando nome do cliente e número do pedido.
 	public static List<Object[]> buscarPedidos(EntityManager em) {
 		TypedQuery<Object[]> query = em.createQuery("SELECT c.nome, p.codPedido FROM Cliente AS c "
-				+ "LEFT JOIN Pedido AS p ON p.cliente.codCliente = c.codCliente", Object[].class);
+				+ "INNER JOIN Pedido AS p ON p.cliente.codCliente = c.codCliente "
+				+ "ORDER BY c.codCliente, p.codPedido", Object[].class);
 		List<Object[]> results = query.getResultList();
 		int calc = 0;
 		for (Object[] result : results) {
@@ -59,14 +60,14 @@ public class Executavel {
 	//Liste o nome do cliente, o código do pedido e a quantidade total de produtos por pedido.
 	public static List<Object[]> buscarQuantidadePorPedido(EntityManager em) {
 		TypedQuery<Object[]> query = em.createQuery("SELECT c.nome, p.codPedido, SUM(COALESCE(i.quantidade,0)) FROM Cliente AS c " + 
-				"LEFT JOIN Pedido AS p ON p.cliente.codCliente = c.codCliente " + 
+				"INNER JOIN Pedido AS p ON p.cliente.codCliente = c.codCliente " + 
 				"LEFT JOIN ItemPedido AS i ON p.codPedido = i.pedido.codPedido " + 
-				"GROUP BY p.codPedido ORDER BY c.nome", Object[].class);
+				"GROUP BY p.codPedido ORDER BY c.codCliente, p.codPedido", Object[].class);
 		List<Object[]> results = query.getResultList();
 		int calc = 0;
 		for (Object[] result : results) {
 			calc++;
-			System.out.println("Cliente: " + result[0] + ", Pedido: " + result[1] + ", Soma: " + result[2]);
+			System.out.println("Cliente: " + result[0] + ", Pedido: " + result[1] + ", Quantia: " + result[2]);
 		}
 		System.out.println(calc);
 		return results;
