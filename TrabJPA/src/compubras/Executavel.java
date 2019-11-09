@@ -20,7 +20,7 @@ public class Executavel {
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
 		
-		buscarPedidos(em);
+		buscarQuantidadePorPedido(em);
 		
 		em.getTransaction().commit();
 		em.close();
@@ -38,6 +38,22 @@ public class Executavel {
 //		}
 //		System.out.println(calc);
 		return results;
+	}
+	
+	
+	//Liste o nome do cliente, o código do pedido e a quantidade total de produtos por pedido.
+	public static void buscarQuantidadePorPedido(EntityManager em) {
+		TypedQuery<Object[]> query = em.createQuery("select c.nome, p.codPedido, sum(i.quantidade) from Cliente c " + 
+				"left join Pedido p on p.cliente.codCliente = c.codCliente " + 
+				"left join ItemPedido i on p.codPedido = i.pedido.codPedido group by p.codPedido", Object[].class);
+		List<Object[]> results = query.getResultList();
+		int calc = 0;
+		for (Object[] result : results) {
+			calc++;
+			System.out.println("Cliente: " + result[0] + ", Pedido: " + result[1] + ", Soma: " + result[2]);
+		}
+		System.out.println(calc);
+//		return results;
 	}
 
 }
