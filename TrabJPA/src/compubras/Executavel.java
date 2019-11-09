@@ -1,5 +1,6 @@
 package compubras;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -8,6 +9,7 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
 import model.Cliente;
+import model.Comissao;
 import model.ItemPedido;
 import model.Pedido;
 import model.Produto;
@@ -20,22 +22,34 @@ public class Executavel {
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
 		
-		buscarQuantidadePorPedido(em);
+//		Cliente c = new Cliente(1, "allanzinho", "rua", "cidade", "12231", "UF", "233223");
+////		em.persist(c);
+//		Produto p = new Produto(1, "produto legal", 1200.90);
+////		em.persist(p);
+//		Vendedor v = new Vendedor(1, "paola", 2.00, Comissao.A);
+////		em.persist(v);
+//		Pedido e = new Pedido(1, LocalDate.of(2019, 11, 29), LocalDate.of(2019, 10, 31), c, v);
+//		
+//		ItemPedido i = new ItemPedido(null, e, p, 25);
+//		em.persist(i);
 		
+		buscarPedidos(em);
+//		buscarProdutosVendidos(em);
+//		buscarQuantidadePorPedido(em);
 		em.getTransaction().commit();
 		em.close();
 		emf.close();
 	}
 	//Ver os pedidos de cada cliente, listando nome do cliente e número do pedido.
-	public static List<Object[]> buscarPedidos(EntityManager em) {
-		TypedQuery<Object[]> query = em.createQuery("SELECT c.nome, p.codPedido FROM Cliente AS c "
+	public static List<Pedido> buscarPedidos(EntityManager em) {
+		TypedQuery<Pedido> query = em.createQuery("SELECT p.cliente.nome, p.codPedido FROM Cliente AS c "
 				+ "INNER JOIN Pedido AS p ON p.cliente.codCliente = c.codCliente "
-				+ "ORDER BY c.codCliente, p.codPedido", Object[].class);
-		List<Object[]> results = query.getResultList();
+				+ "ORDER BY c.codCliente, p.codPedido", Pedido.class);
+		List<Pedido> results = query.getResultList();
 		int calc = 0;
-		for (Object[] result : results) {
+		for (Pedido result : results) {
 			calc++;
-			System.out.println("Cliente: " + result[0] + ", Pedido: " + result[1]);
+			System.out.println("Cliente: " + result.getCliente().getNome() + ", Pedido: " + result.getCodPedido());
 		}
 		System.out.println(calc);
 		return results;

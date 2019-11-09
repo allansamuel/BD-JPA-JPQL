@@ -32,6 +32,14 @@ public class Vendedor {
 		super();
 	}
 
+	public Vendedor(Integer codVendedor, String nome, Double salarioFixo, Comissao faixaComissao) {
+		super();
+		this.codVendedor = codVendedor;
+		this.nome = nome;
+		this.salarioFixo = salarioFixo;
+		this.faixaComissao = faixaComissao;
+	}
+
 	public Integer getCodVendedor() {
 		return codVendedor;
 	}

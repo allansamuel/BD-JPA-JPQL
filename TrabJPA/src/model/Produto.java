@@ -26,6 +26,13 @@ public class Produto {
 		super();
 	}
 
+	public Produto(Integer codProduto, String descricao, Double valorUnitario) {
+		super();
+		this.codProduto = codProduto;
+		this.descricao = descricao;
+		this.valorUnitario = valorUnitario;
+	}
+
 	public Integer getCodProduto() {
 		return codProduto;
 	}

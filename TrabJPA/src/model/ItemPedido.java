@@ -33,6 +33,14 @@ public class ItemPedido {
 	public ItemPedido() {
 		super();
 	}
+	
+	public ItemPedido(Integer codItemPedido, Pedido pedido, Produto produto, Integer quantidade) {
+		super();
+		this.codItemPedido = codItemPedido;
+		this.pedido = pedido;
+		this.produto = produto;
+		this.quantidade = quantidade;
+	}
 
 	public Integer getCodItemPedido() {
 		return codItemPedido;

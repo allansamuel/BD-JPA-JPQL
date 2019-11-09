@@ -36,6 +36,15 @@ public class Pedido {
 	public Pedido() {
 		super();
 	}
+	
+	public Pedido(Integer codPedido, LocalDate prazoEntrega, LocalDate dataPedido, Cliente cliente, Vendedor vendedor) {
+		super();
+		this.codPedido = codPedido;
+		this.prazoEntrega = prazoEntrega;
+		this.dataPedido = dataPedido;
+		this.cliente = cliente;
+		this.vendedor = vendedor;
+	}
 
 	public Integer getCodPedido() {
 		return codPedido;

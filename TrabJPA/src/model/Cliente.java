@@ -35,8 +35,19 @@ public class Cliente {
 	private String ie;
 	
 	public Cliente() {
-		this.codCliente = null;
 	}
+	
+	public Cliente(Integer codCliente, String nome, String endereco, String cidade, String cep, String uf, String ie) {
+		super();
+		this.codCliente = codCliente;
+		this.nome = nome;
+		this.endereco = endereco;
+		this.cidade = cidade;
+		this.cep = cep;
+		this.uf = uf;
+		this.ie = ie;
+	}
+
 	public Integer getCodCliente() {
 		return codCliente;
 	}
