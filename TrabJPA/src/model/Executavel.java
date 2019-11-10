@@ -13,16 +13,16 @@ public class Executavel {
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
 		
-		TypedQuery<ClienteEPedidoEProdutos> query = em.createQuery("SELECT new model.ClienteEPedidoEProdutos" + 
-				"(c.nome, p.codPedido, SUM(COALESCE(i.quantidade,0))) FROM Cliente AS c " + 
-				"INNER JOIN Pedido AS p ON p.cliente.codCliente = c.codCliente " + 
-				"LEFT JOIN ItemPedido AS i ON p.codPedido = i.pedido.codPedido " + 
-				"GROUP BY p.codPedido ORDER BY c.codCliente, p.codPedido", ClienteEPedidoEProdutos.class);
-		List<ClienteEPedidoEProdutos> results = query.getResultList();
+		
+		TypedQuery<Produtos> query = em.createQuery("select new model.Produtos" + 
+				"(p.codProduto, p.descricao, sum(coalesce(i.quantidade,0) * p.valorUnitario)) " + 
+				"from Produto p left join ItemPedido i " +
+				"on i.produto.codProduto = p.codProduto group by p.codProduto", Produtos.class);
+		List<Produtos> results = query.getResultList();
 		int calc = 0;
-		for (ClienteEPedidoEProdutos result : results) {
+		for (Produtos result : results) {
 			calc++;
-			System.out.println("Cliente: " + result.getNome() + ", Pedido: " + result.getCodPedido() + ", Quantia: " + result.getQuantidade());
+			System.out.println("CodProduto: " + result.getCodProduto() + ", Descricao: " + result.getDescricao() + ", ValorObtido: R$ " + result.getValorTotal());
 		}
 		System.out.println(calc + " rows");
 		
@@ -32,48 +32,47 @@ public class Executavel {
 		emf.close();
 	}
 }
-class ClienteEPedidoEProdutos {
-		private String nome;
-		private Integer codPedido;
-		private long quantidade;
+class Produtos {
+		private Integer codProduto;
+		private String descricao;
+		private double valorTotal;
 		
-		public ClienteEPedidoEProdutos() {
+		public Produtos() {
 			super();
 		}
 
-		public ClienteEPedidoEProdutos(String nome, Integer codPedido, long quantidade) {
+		public Produtos(Integer codProduto, String descricao, double valorTotal) {
 			super();
-			this.nome = nome;
-			this.codPedido = codPedido;
-			this.quantidade = quantidade;
+			this.codProduto = codProduto;
+			this.descricao = descricao;
+			this.valorTotal = valorTotal;
 		}
 
-		public String getNome() {
-			return nome;
+		public Integer getCodProduto() {
+			return codProduto;
 		}
 
-		public void setNome(String nome) {
-			this.nome = nome;
+		public void setCodProduto(Integer codProduto) {
+			this.codProduto = codProduto;
 		}
 
-		public Integer getCodPedido() {
-			return codPedido;
+		public String getDescricao() {
+			return descricao;
 		}
 
-		public void setCodPedido(Integer codPedido) {
-			this.codPedido = codPedido;
+		public void setDescricao(String descricao) {
+			this.descricao = descricao;
 		}
 
-		public long getQuantidade() {
-			return quantidade;
+		public double getValorTotal() {
+			return valorTotal;
 		}
 
-		public void setQuantidade(long quantidade) {
-			this.quantidade = quantidade;
+		public void setValorTotal(double valorTotal) {
+			this.valorTotal = valorTotal;
 		}
 
 		
-
 		
 	}
 	
