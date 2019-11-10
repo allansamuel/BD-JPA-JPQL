@@ -1,46 +1,4 @@
-package compubras;
-
-import java.time.LocalDate;
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
-
-import model.Cliente;
-import model.Comissao;
-import model.ItemPedido;
-import model.Pedido;
-import model.Produto;
-import model.Vendedor;
-
-public class Executavel {
-	public static void main(String[]args) {
-		EntityManagerFactory emf = Persistence
-				.createEntityManagerFactory("compubras");
-		EntityManager em = emf.createEntityManager();
-		em.getTransaction().begin();
-		
-//		Cliente c = new Cliente(1, "allanzinho", "rua", "cidade", "12231", "UF", "233223");
-////		em.persist(c);
-//		Produto p = new Produto(1, "produto legal", 1200.90);
-////		em.persist(p);
-//		Vendedor v = new Vendedor(1, "paola", 2.00, Comissao.A);
-////		em.persist(v);
-//		Pedido e = new Pedido(1, LocalDate.of(2019, 11, 29), LocalDate.of(2019, 10, 31), c, v);
-//		
-//		ItemPedido i = new ItemPedido(null, e, p, 25);
-//		em.persist(i);
-		
-		buscarPedidos(em);
-//		buscarProdutosVendidos(em);
-//		buscarQuantidadePorPedido(em);
-		em.getTransaction().commit();
-		em.close();
-		emf.close();
-	}
-	//Ver os pedidos de cada cliente, listando nome do cliente e número do pedido.
+//Ver os pedidos de cada cliente, listando nome do cliente e nÃºmero do pedido.
 	public static List<Pedido> buscarPedidos(EntityManager em) {
 		TypedQuery<Pedido> query = em.createQuery("SELECT p.cliente.nome, p.codPedido FROM Cliente AS c "
 				+ "INNER JOIN Pedido AS p ON p.cliente.codCliente = c.codCliente "
@@ -56,7 +14,7 @@ public class Executavel {
 	}
 	
 	
-//	Mostre o código do produto, a descrição e o valor total obtido por cada produto ao longo da história da loja. 
+//	Mostre o cÃ³digo do produto, a descriÃ§Ã£o e o valor total obtido por cada produto ao longo da histÃ³ria da loja. 
 //	Ordene a lista pelo valor total dos produtos. Observe que mesmo os produtos que nunca foram vendidos devem ser exibidos.
 	public static List<Object[]> buscarProdutosVendidos(EntityManager em) {
 		TypedQuery<Object[]> query = em.createQuery("select p.codProduto, p.descricao, sum(coalesce(i.quantidade,0) * p.valorUnitario) as obtido " + 
@@ -71,7 +29,7 @@ public class Executavel {
 		return results;
 	}
 	
-	//Liste o nome do cliente, o código do pedido e a quantidade total de produtos por pedido.
+	//Liste o nome do cliente, o cÃ³digo do pedido e a quantidade total de produtos por pedido.
 	public static List<Object[]> buscarQuantidadePorPedido(EntityManager em) {
 		TypedQuery<Object[]> query = em.createQuery("SELECT c.nome, p.codPedido, SUM(COALESCE(i.quantidade,0)) FROM Cliente AS c " + 
 				"INNER JOIN Pedido AS p ON p.cliente.codCliente = c.codCliente " + 
@@ -86,5 +44,3 @@ public class Executavel {
 		System.out.println(calc);
 		return results;
 	}
-
-}
